@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAVER-tp", "MAVER-tp\MAVER-tp.csproj", "{A73FB6AF-33C9-4E05-8280-44009FC37005}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A73FB6AF-33C9-4E05-8280-44009FC37005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A73FB6AF-33C9-4E05-8280-44009FC37005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A73FB6AF-33C9-4E05-8280-44009FC37005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A73FB6AF-33C9-4E05-8280-44009FC37005}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F6847EFB-79DB-4483-889C-6C7240F038DF}
+	EndGlobalSection
+EndGlobal
