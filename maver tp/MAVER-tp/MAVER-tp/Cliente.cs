@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MAVER_tp
 {
-    class Cliente //public?
+    class Cliente 
     {
         public List<double> Pago_con;
         public List<string> Que_lleva;

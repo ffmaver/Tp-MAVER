@@ -1,0 +1,9 @@
+C:\Users\maver\OneDrive\Escritorio\maver git\maver tp\MAVER-tp\MAVER-tp\bin\Debug\MAVER-tp.exe.config
+C:\Users\maver\OneDrive\Escritorio\maver git\maver tp\MAVER-tp\MAVER-tp\bin\Debug\MAVER-tp.exe
+C:\Users\maver\OneDrive\Escritorio\maver git\maver tp\MAVER-tp\MAVER-tp\bin\Debug\MAVER-tp.pdb
+C:\Users\maver\OneDrive\Escritorio\maver git\maver tp\MAVER-tp\MAVER-tp\obj\Debug\MAVER-tp.csproj.AssemblyReference.cache
+C:\Users\maver\OneDrive\Escritorio\maver git\maver tp\MAVER-tp\MAVER-tp\obj\Debug\MAVER_tp.Properties.Resources.resources
+C:\Users\maver\OneDrive\Escritorio\maver git\maver tp\MAVER-tp\MAVER-tp\obj\Debug\MAVER-tp.csproj.GenerateResource.cache
+C:\Users\maver\OneDrive\Escritorio\maver git\maver tp\MAVER-tp\MAVER-tp\obj\Debug\MAVER-tp.csproj.CoreCompileInputs.cache
+C:\Users\maver\OneDrive\Escritorio\maver git\maver tp\MAVER-tp\MAVER-tp\obj\Debug\MAVER-tp.exe
+C:\Users\maver\OneDrive\Escritorio\maver git\maver tp\MAVER-tp\MAVER-tp\obj\Debug\MAVER-tp.pdb

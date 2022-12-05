@@ -9,8 +9,7 @@ namespace MAVER_tp
     class Maquina
     {
         Dictionary<double, int> Billetes_Monedas; //denominacion - cantidad
-        Dictionary<string, double> Productos; //
-
+        Dictionary<string, double> Productos; 
         public Maquina(Dictionary<string,double> productos)
         {
             this.Billetes_Monedas = new Dictionary<double, int>(); //inicializo el dic
@@ -25,6 +24,19 @@ namespace MAVER_tp
             Billetes_Monedas.Add(0.25, 10);
 
             this.Productos = productos;
+        }
+        public void Recibir_Cliente(Cliente cliente)
+        {
+            foreach (var item in cliente.Pago_con)
+            {
+                if (Billetes_Monedas[item] < 5 && item>=10)
+                    Billetes_Monedas[item]++; //le sumo uno a la cantidad de billetes que me da el cliente
+                else if(Billetes_Monedas[item] < 15 && item <=5)
+                    Billetes_Monedas[item]++;
+                else
+                    throw new Exception("No aceptan mas billetes");
+            }
+            Calcular_Total_A_Pagar(cliente);
         }
         public void Calcular_Total_A_Pagar(Cliente cliente)
         {//busco el precio de los productos en el dic y los sumo
@@ -42,21 +54,29 @@ namespace MAVER_tp
         /// <param name="total"></param>
         /// <param name="cliente"></param>
         /// <returns></returns>
-        public List<double> Vuelto_Greedy(double total, Cliente cliente)
+        public void Vuelto_Greedy(double total, Cliente cliente)
         {
             double vuelto = cliente.Total() - total; //calculo cuanto le tengo que devolver
             List<double> Lo_que_le_voy_a_dar = new List<double>();
-
-            foreach(var item in Billetes_Monedas)
+            while (vuelto > 0)
             {
-                if (item.Key <= vuelto && item.Value>1) 
+                foreach (var item in Billetes_Monedas.ToList())
                 {
-                    Lo_que_le_voy_a_dar.Add(item.Key);
-                    Billetes_Monedas[item.Key]= item.Value-1;
-                    vuelto = vuelto - item.Key; //actualizo el vuelto
+                    if (item.Key <= vuelto && item.Value > 1)
+                    {
+                        Lo_que_le_voy_a_dar.Add(item.Key);
+                        Billetes_Monedas[item.Key] = item.Value - 1;
+                        vuelto = vuelto - item.Key; //actualizo el vuelto
+                        break;
+                    }
                 }
             }
-            return Lo_que_le_voy_a_dar;
+            foreach(var item in Lo_que_le_voy_a_dar)
+            {
+                Console.WriteLine(item);
+                Console.ReadLine();
+            }
+            //return Lo_que_le_voy_a_dar;
         }
     }
 }
