@@ -34,7 +34,7 @@ namespace MAVER_tp
                 else if(Billetes_Monedas[item] < 15 && item <=5)
                     Billetes_Monedas[item]++;
                 else
-                    throw new Exception("No aceptan mas billetes");
+                    throw new Exception("No aceptan mas billetes, no podemos atenderte.");
             }
             Calcular_Total_A_Pagar(cliente);
         }
@@ -71,7 +71,10 @@ namespace MAVER_tp
                     }
                 }
             }
-            foreach(var item in Lo_que_le_voy_a_dar)
+            Console.WriteLine("El total a pagar de "  + cliente.nombre + " es: " + total);
+            Console.WriteLine("Paga con: " + cliente.Total());
+            Console.WriteLine("El vuelto es: ");
+            foreach (var item in Lo_que_le_voy_a_dar)
             {
                 Console.WriteLine(item);
                 Console.ReadLine();

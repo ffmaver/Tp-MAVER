@@ -45,9 +45,9 @@ namespace MAVER_tp
             Lista_billetes2.Add(100); //  total a pagar = 50
                                      //   pago con = 100
 
-            Lista_billetes3.Add(50); //   total a pagar = 220.5
+            Lista_billetes3.Add(50); //   total a pagar = 220.5 
             Lista_billetes3.Add(50); //   pago con = 250
-            Lista_billetes3.Add(50);
+            Lista_billetes3.Add(50); 
             Lista_billetes3.Add(50);
             Lista_billetes3.Add(50);
 
@@ -72,10 +72,10 @@ namespace MAVER_tp
 
             Que_lleva_4.Add("m&m"); //lo que lleva fabricio, suma 3.25
 
-            Cliente Sol = new Cliente(Lista_billetes1, Que_lleva_1); //me creo mis clientes con lo que llevan y como pagan
-            Cliente Valen = new Cliente(Lista_billetes2, Que_lleva_2);
-            Cliente Rosario = new Cliente(Lista_billetes3, Que_lleva_3);
-            Cliente Fabricio = new Cliente(Lista_billetes4, Que_lleva_4);
+            Cliente Sol = new Cliente(Lista_billetes1, Que_lleva_1, "Sol"); //me creo mis clientes con lo que llevan y como pagan
+            Cliente Valen = new Cliente(Lista_billetes2, Que_lleva_2, "Valentina");
+            Cliente Rosario = new Cliente(Lista_billetes3, Que_lleva_3, "Rosario");
+            Cliente Fabricio = new Cliente(Lista_billetes4, Que_lleva_4, "Fabricio");
 
             Maquina maquina = new Maquina(productos);
             try
@@ -91,7 +91,7 @@ namespace MAVER_tp
 
             try
             {
-                maquina.Recibir_Cliente(Rosario);
+                maquina.Recibir_Cliente(Rosario); //a rosario le va a salir la exeppcion de los billetes
               
             }
             catch (Exception e) { Console.WriteLine(e.Message); }
