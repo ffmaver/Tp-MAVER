@@ -102,7 +102,9 @@ namespace MAVER_tp
             }
             catch (Exception e) { Console.WriteLine(e.Message); }
 
-
+            Console.ReadLine();
+            Console.Clear();
+            //------------------------ FIN GREEDY ------------------------------
 
 
 
