@@ -11,6 +11,10 @@ namespace MAVER_tp
         Dictionary<double, int> Billetes_Monedas; //denominacion - cantidad
         Dictionary<string, double> Productos;
         double vuelto;
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="productos"></param>
         public Maquina(Dictionary<string, double> productos)
         {
             this.Billetes_Monedas = new Dictionary<double, int>(); //inicializo el dic
@@ -27,6 +31,10 @@ namespace MAVER_tp
             this.Productos = productos;
             this.vuelto = 0;
         }
+        /// <summary>
+        /// verifica que se cumplan las condiciones de los billetes
+        /// </summary>
+        /// <param name="cliente"></param>
         public void Recibir_Cliente(Cliente cliente)
         {
             foreach (var item in cliente.Pago_con)
@@ -40,6 +48,10 @@ namespace MAVER_tp
             }
             Calcular_Total_A_Pagar(cliente);
         }
+        /// <summary>
+        /// calcula cuanto tiene qe pagar el cliente
+        /// </summary>
+        /// <param name="cliente"></param>
         public void Calcular_Total_A_Pagar(Cliente cliente)
         {//busco el precio de los productos en el dic y los sumo
             double total = 0;
@@ -80,32 +92,30 @@ namespace MAVER_tp
             foreach (var item in Lo_que_le_voy_a_dar)
             {
                 Console.WriteLine(item);
-                Console.ReadLine();
+                //Console.ReadLine();
             }
 
         }
         public void Vuelto_Dinamico(Cliente cliente)
         {
-            int cant_monedas = 0;
+            this.vuelto = 10;
             List<int> Billetes_ordenados = new List<int>();
             List<int> Cant_Billetes = new List<int>();
             Billetes_ordenados = Ordenar_Dic();
             int[,] matriz_dinamica = new int[Billetes_ordenados.Count(), Convert.ToInt32(this.vuelto*100)]; //multiplico *100 para poder poner la matriz en int
             int i, j;
 
-            for(i=0; i<cant_monedas;i++)
+            for(i=0; i< Billetes_ordenados.Count(); i++)
             {
                 for (j = 0; j < Convert.ToInt32(this.vuelto * 100); j++)
                 {
-                    if (i == 0)
-                        matriz_dinamica[i, j] = int.MaxValue;
-                    if (j == 0)
-                        matriz_dinamica[i, j] = 0;
-                    if(Billetes_ordenados[i]>j) //si el "billete es mayor al vuelto"
+                    matriz_dinamica[0, j] = int.MaxValue-1;
+                    matriz_dinamica[i, 0] = 0;
+                    if(Billetes_ordenados[i]>j && i>0) //si el "billete es mayor al vuelto"
                     {
                         matriz_dinamica[i, j] = matriz_dinamica[i - 1, j]; 
                     }
-                    else
+                    else if(i>0)
                     {
                         if (matriz_dinamica[i - 1, j] > matriz_dinamica[i, j - Billetes_ordenados[i]] + 1)
                         {
@@ -117,12 +127,24 @@ namespace MAVER_tp
                 }
             }
 
-            i = cant_monedas;
-            j = Convert.ToInt32(this.vuelto * 100);
-
-            while(j!=0)
+            for (int k = 0; k < Billetes_ordenados.Count(); k++)
             {
-                if (i > 1 & matriz_dinamica[i, j] == matriz_dinamica[i - 1, j])
+                for (int s = 0; s < Convert.ToInt32(this.vuelto * 100); s++)
+                {
+                    Console.Write(matriz_dinamica[k, s] + " ");
+                }
+                Console.WriteLine();
+            }
+
+            for (i=0;i< Billetes_ordenados.Count(); i++)
+                Cant_Billetes.Add(0);
+            
+            i = Billetes_ordenados.Count()-1;
+            j = Convert.ToInt32(this.vuelto * 100)-1;
+            
+            while(j>0) //me copio en una lista nueva la cantidad de monedas que use
+            {
+                if (i > 1 && matriz_dinamica[i, j] == matriz_dinamica[i - 1, j])
                     i--;
                 else
                 {
@@ -130,7 +152,12 @@ namespace MAVER_tp
                     j= j - Billetes_ordenados[i];
                 }
             }
+
         }
+        /// <summary>
+        /// Ordena los billetes de menor a mayor
+        /// </summary>
+        /// <returns></returns>
         public List<int> Ordenar_Dic()
         {
             int cant = this.Billetes_Monedas.Count();

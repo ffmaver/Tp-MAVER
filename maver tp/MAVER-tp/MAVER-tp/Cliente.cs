@@ -18,6 +18,10 @@ namespace MAVER_tp
             this.Pago_con = pago_con;
             this.Que_lleva = que_lleva;
         }
+        /// <summary>
+        /// calcula con cuanta plata pago
+        /// </summary>
+        /// <returns></returns>
         public double Total()
         {
             double total = 0;

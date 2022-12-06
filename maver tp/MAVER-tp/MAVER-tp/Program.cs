@@ -78,7 +78,7 @@ namespace MAVER_tp
             Cliente Fabricio = new Cliente(Lista_billetes4, Que_lleva_4, "Fabricio");
 
             Maquina maquina = new Maquina(productos);
-            try
+          /*  try
             {
                 maquina.Recibir_Cliente(Sol);
             } catch(Exception e) { Console.WriteLine(e.Message); }
@@ -102,10 +102,14 @@ namespace MAVER_tp
             }
             catch (Exception e) { Console.WriteLine(e.Message); }
 
-            Console.ReadLine();
+            Console.ReadLine();*/
             Console.Clear();
             //------------------------ FIN GREEDY ------------------------------
 
+            maquina.Vuelto_Dinamico(Sol);
+            maquina.Vuelto_Dinamico(Valen);
+            maquina.Vuelto_Dinamico(Rosario);
+            maquina.Vuelto_Dinamico(Fabricio);
 
 
 
@@ -122,7 +126,9 @@ namespace MAVER_tp
 
 
 
-          
+
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
