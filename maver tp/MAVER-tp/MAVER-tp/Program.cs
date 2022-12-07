@@ -78,16 +78,37 @@ namespace MAVER_tp
             Cliente Fabricio = new Cliente(Lista_billetes4, Que_lleva_4, "Fabricio");
 
             Maquina maquina = new Maquina(productos);
-          /*  try
+
+            try
             {
                 maquina.Recibir_Cliente(Sol);
             } catch(Exception e) { Console.WriteLine(e.Message); }
+            maquina.Vuelto_Greedy(maquina.vuelto, Sol);
+            try
+            {
+                maquina.Recibir_Cliente(Sol);
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); }
+            maquina.Vuelto_Dinamico(Sol);
+
+
+
 
             try
             {
                 maquina.Recibir_Cliente(Valen);
             }
             catch (Exception e) { Console.WriteLine(e.Message); }
+            maquina.Vuelto_Greedy(maquina.vuelto, Valen);
+
+            try
+            {
+                maquina.Recibir_Cliente(Valen);
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); }
+            maquina.Vuelto_Dinamico(Valen);
+
+
 
             try
             {
@@ -95,21 +116,37 @@ namespace MAVER_tp
               
             }
             catch (Exception e) { Console.WriteLine(e.Message); }
-           
+            maquina.Vuelto_Greedy(maquina.vuelto, Rosario);
+
+            try
+            {
+                maquina.Recibir_Cliente(Rosario); //a rosario le va a salir la exeppcion de los billetes
+
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); }
+            maquina.Vuelto_Dinamico(Rosario);
+
+
+
             try
             {
                 maquina.Recibir_Cliente(Fabricio);
             }
             catch (Exception e) { Console.WriteLine(e.Message); }
+            maquina.Vuelto_Greedy(maquina.vuelto, Fabricio);
+            try
+            {
+                maquina.Recibir_Cliente(Fabricio);
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); }
+            maquina.Vuelto_Dinamico(Fabricio);
 
-            Console.ReadLine();*/
+
+
+            Console.ReadLine();
             Console.Clear();
             //------------------------ FIN GREEDY ------------------------------
 
-            maquina.Vuelto_Dinamico(Sol);
-            maquina.Vuelto_Dinamico(Valen);
-            maquina.Vuelto_Dinamico(Rosario);
-            maquina.Vuelto_Dinamico(Fabricio);
 
 
 

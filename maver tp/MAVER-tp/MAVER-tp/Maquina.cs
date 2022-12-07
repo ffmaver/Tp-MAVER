@@ -10,7 +10,7 @@ namespace MAVER_tp
     {
         Dictionary<double, int> Billetes_Monedas; //denominacion - cantidad
         Dictionary<string, double> Productos;
-        double vuelto;
+        public double vuelto;
         /// <summary>
         /// constructor
         /// </summary>
@@ -24,7 +24,7 @@ namespace MAVER_tp
             Billetes_Monedas.Add(10, 3);
             Billetes_Monedas.Add(5, 10);
             Billetes_Monedas.Add(2, 10);
-            Billetes_Monedas.Add(1, 10);
+            Billetes_Monedas.Add(1, 10); 
             Billetes_Monedas.Add(0.5, 10);
             Billetes_Monedas.Add(0.25, 10);
 
@@ -60,7 +60,7 @@ namespace MAVER_tp
                 if (Productos.ContainsKey(cliente.Que_lleva[i])) //si existe lo sumo
                     total += Productos[cliente.Que_lleva[i]];
             }
-            Vuelto_Greedy(total, cliente);
+            //Vuelto_Greedy(total, cliente);
             this.vuelto = total;
         }
         /// <summary>
@@ -98,52 +98,54 @@ namespace MAVER_tp
         }
         public void Vuelto_Dinamico(Cliente cliente)
         {
-            this.vuelto = 10;
+            //this.vuelto = 49.5
             List<int> Billetes_ordenados = new List<int>();
             List<int> Cant_Billetes = new List<int>();
-            Billetes_ordenados = Ordenar_Dic();
-            int[,] matriz_dinamica = new int[Billetes_ordenados.Count(), Convert.ToInt32(this.vuelto*100)]; //multiplico *100 para poder poner la matriz en int
+            List<int> Billetes_value = new List<int>();
+            double total = 0;
             int i, j;
+            for (i = 0; i < cliente.Que_lleva.Count(); i++)
+            {
+                if (Productos.ContainsKey(cliente.Que_lleva[i])) //si existe lo sumo
+                    total += Productos[cliente.Que_lleva[i]];
+            }
+            this.vuelto = cliente.Total() - total;
+            Billetes_ordenados = Ordenar_Dic(ref Billetes_value); 
+            int[,] matriz_dinamica = new int[Billetes_ordenados.Count(), Convert.ToInt32(this.vuelto*100)+1]; //multiplico *100 para poder poner la matriz en int
+          
 
             for(i=0; i< Billetes_ordenados.Count(); i++)
             {
-                for (j = 0; j < Convert.ToInt32(this.vuelto * 100); j++)
+                for (j = 0; j < Convert.ToInt32(this.vuelto * 100)+1; j++)
                 {
                     matriz_dinamica[0, j] = int.MaxValue-1;
                     matriz_dinamica[i, 0] = 0;
-                    if(Billetes_ordenados[i]>j && i>0) //si el "billete es mayor al vuelto"
+                    if (Billetes_value[i] > 0)
                     {
-                        matriz_dinamica[i, j] = matriz_dinamica[i - 1, j]; 
-                    }
-                    else if(i>0)
-                    {
-                        if (matriz_dinamica[i - 1, j] > matriz_dinamica[i, j - Billetes_ordenados[i]] + 1)
+                        if (Billetes_ordenados[i] > j && i > 0) //si el "billete es mayor al vuelto"
                         {
-                            matriz_dinamica[i, j] = matriz_dinamica[i, j - Billetes_ordenados[i]] + 1;
-                        }
-                        else
                             matriz_dinamica[i, j] = matriz_dinamica[i - 1, j];
+                        }
+                        else if (i > 0)
+                        {
+                            matriz_dinamica[i, j] = Math.Min(matriz_dinamica[i - 1, j], matriz_dinamica[i, j - Billetes_ordenados[i]] + 1);
+                        }
                     }
+                    else
+                        matriz_dinamica[i, j] = matriz_dinamica[i - 1, j];
                 }
             }
 
-            for (int k = 0; k < Billetes_ordenados.Count(); k++)
-            {
-                for (int s = 0; s < Convert.ToInt32(this.vuelto * 100); s++)
-                {
-                    Console.Write(matriz_dinamica[k, s] + " ");
-                }
-                Console.WriteLine();
-            }
 
             for (i=0;i< Billetes_ordenados.Count(); i++)
                 Cant_Billetes.Add(0);
             
             i = Billetes_ordenados.Count()-1;
-            j = Convert.ToInt32(this.vuelto * 100)-1;
+            j = Convert.ToInt32(this.vuelto * 100);
             
             while(j>0) //me copio en una lista nueva la cantidad de monedas que use
             {
+              
                 if (i > 1 && matriz_dinamica[i, j] == matriz_dinamica[i - 1, j])
                     i--;
                 else
@@ -153,36 +155,81 @@ namespace MAVER_tp
                 }
             }
 
+            foreach(var item in Billetes_Monedas)
+            {
+                for(i= Cant_Billetes.Count()-1; i>0;i--)
+                {
+                    if(item.Key*100 == Billetes_ordenados[i])
+                    {
+                        if (item.Value - Cant_Billetes[i] < 1 && i != 0) //si lo que tengo menos lo que me dio la matriz es menor a 1
+                        {
+                            Cant_Billetes[i - 1]+= Convert.ToInt32((Cant_Billetes[i] - item.Value)/2); //le sumo la mitad del de arriba
+                            Cant_Billetes[i]-= (Cant_Billetes[i] - item.Value);
+                        }
+                    }
+                }
+            }
+
+            
+            Console.WriteLine("El total a pagar de {0} es: {1} ", cliente.nombre, total);
+            Console.WriteLine("Paga con: " + cliente.Total());
+            Console.WriteLine("El vuelto es: ");
+            double aux = 0;
+
+            for (i = 0; i < Cant_Billetes.Count(); i++)
+            {
+                if(Cant_Billetes[i]!=0)
+                {
+                    aux = Convert.ToDouble(Billetes_ordenados[i]) / 100;
+                    if (i<4)
+                        Console.WriteLine("{0} billetes de ${1} ", Cant_Billetes[i], aux.ToString("N2"));
+                    else
+                        Console.WriteLine("{0} monedas de ${1} ", Cant_Billetes[i], aux.ToString("N2"));
+
+
+                }
+
+
+            }
         }
         /// <summary>
         /// Ordena los billetes de menor a mayor
         /// </summary>
         /// <returns></returns>
-        public List<int> Ordenar_Dic()
+        public List<int> Ordenar_Dic(ref List<int> Billetes_value)
         {
             int cant = this.Billetes_Monedas.Count();
             List<int> Billetes_ordenados = new List<int>();
+
             foreach (var item in Billetes_Monedas)
             {
                 if(item.Value > 1)
-                    Billetes_ordenados.Add(Convert.ToInt32(item.Key*100));
-            }
-            for (int n = 0; n < cant; n++)
-            {
-                for (int i = 0; i < cant - 1; i++)
                 {
-                    if (Billetes_ordenados[i] < Billetes_ordenados[i + 1])
-                    {
-                        int aux = Billetes_ordenados[i];
-                        Billetes_ordenados[i] = Billetes_ordenados[i + 1];
-                        Billetes_ordenados[i + 1] = aux;
-                    }
+                    Billetes_ordenados.Add(Convert.ToInt32(item.Key * 100));
+
                 }
             }
-            return Billetes_ordenados;
+
+            Billetes_ordenados.OrderBy(num=>num);
+            
+
+            for(int i=0;i< Billetes_ordenados.Count(); i++) //me copio los value con una lista nueva
+            {
+                foreach (var item in Billetes_Monedas)
+                {
+                    if (Billetes_ordenados[i]==item.Key*100)
+                    {
+                        Billetes_value.Add(item.Value-1); //para tener 1 siempre
+                        break;
+                    }
+                }
+                    
+            }
+            
+                return Billetes_ordenados;
 
         }
 
     }
-    
+
 }
